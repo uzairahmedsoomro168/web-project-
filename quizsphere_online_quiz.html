@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="QuizSphere - practice Computer Basics, General Knowledge, English, HTML and CSS quizzes.">
+<title>QuizSphere | Online Quiz Application</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--ink:#172033;--muted:#69758b;--primary:#5b5ce2;--primary2:#818cf8;--line:#e6eaf2;--good:#12845b;--bad:#d34444;--shadow:0 16px 45px rgba(31,45,75,.09)}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+button,select{font:inherit}button{cursor:pointer}.topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}.nav{max-width:1120px;margin:auto;padding:16px 22px;display:flex;align-items:center;justify-content:space-between}.brand{font-size:22px;font-weight:850;letter-spacing:-.7px}.brand span{color:var(--primary)}.nav-note{color:var(--muted);font-size:13px}
+main{max-width:1120px;margin:0 auto;padding:34px 22px 60px}.hero{background:linear-gradient(120deg,#282b72,#5b5ce2 58%,#818cf8);color:#fff;padding:34px;border-radius:24px;display:flex;align-items:center;justify-content:space-between;gap:24px;box-shadow:var(--shadow);margin-bottom:28px}.hero h1{font-size:clamp(28px,4vw,42px);margin:0 0 10px;letter-spacing:-1.3px}.hero p{margin:0;color:#e4e6ff;line-height:1.6;max-width:620px}.hero-mark{font-size:74px;opacity:.95}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:30px 0 16px}.section-head h2{margin:0;font-size:22px}.section-head p{margin:5px 0 0;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.subject{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 20px rgba(31,45,75,.035);transition:.2s}.subject:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.subject-icon{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;font-size:24px;background:#f0f0ff;margin-bottom:14px}.subject h3{margin:0 0 7px;font-size:18px}.subject p{color:var(--muted);font-size:13px;line-height:1.5;margin:0 0 16px;min-height:38px}.subject-foot{display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:12px}.btn{border:0;border-radius:11px;padding:11px 16px;background:var(--primary);color:#fff;font-weight:700;transition:.2s}.btn:hover{background:#4546c8;transform:translateY(-1px)}.btn.secondary{background:#eef0ff;color:var(--primary)}.btn.secondary:hover{background:#e2e5ff}.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.controls select{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px;box-shadow:var(--shadow)}.hidden{display:none!important}
+.quiz-top{display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:20px}.quiz-title{font-size:20px;font-weight:800}.pill{padding:8px 12px;border-radius:30px;background:#f0f1ff;color:var(--primary);font-weight:700;font-size:13px}.timer{background:#fff4e8;color:#b66b13}.progress{height:8px;background:#edf0f6;border-radius:20px;overflow:hidden;margin:14px 0 24px}.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary2));transition:width .25s}
+.q-count{color:var(--muted);font-size:13px;font-weight:650}.question{font-size:22px;line-height:1.45;margin:10px 0 22px}.options{display:grid;gap:11px}.option{display:flex;align-items:center;gap:12px;text-align:left;width:100%;padding:14px 16px;background:#fff;border:1.5px solid var(--line);border-radius:13px;color:var(--ink);transition:.15s}.option:hover{border-color:#aaaafa;background:#fafaff}.option.selected{border-color:var(--primary);background:#f3f3ff}.option.correct{border-color:var(--good);background:#edfaf4}.option.wrong{border-color:var(--bad);background:#fff1f1}.letter{width:30px;height:30px;flex:0 0 30px;display:grid;place-items:center;border-radius:9px;background:#f0f2f8;font-size:13px;font-weight:800}.option-text{font-size:15px;line-height:1.4}.feedback{margin-top:16px;padding:13px 15px;border-radius:12px;font-size:14px;line-height:1.5}.feedback.good{background:#edfaf4;color:#116746}.feedback.bad{background:#fff1f1;color:#a52f2f}.quiz-actions{display:flex;justify-content:space-between;gap:10px;margin-top:24px;flex-wrap:wrap}
+.result{text-align:center;padding:18px 5px}.score-circle{width:150px;height:150px;border-radius:50%;margin:20px auto;display:grid;place-items:center;background:conic-gradient(var(--primary) var(--score,0%),#edf0f6 0);position:relative}.score-circle:before{content:"";position:absolute;inset:12px;background:#fff;border-radius:50%}.score-inner{position:relative}.score-inner strong{display:block;font-size:34px}.score-inner span{font-size:12px;color:var(--muted)}.result h2{font-size:28px;margin:8px 0}.result p{color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:560px;margin:22px auto}.stat{background:#f7f8fc;padding:15px;border-radius:13px}.stat strong{display:block;font-size:22px}.stat span{font-size:12px;color:var(--muted)}
+.review{margin-top:24px;text-align:left}.review h3{margin-bottom:12px}.review-item{padding:14px;border:1px solid var(--line);border-radius:12px;margin:10px 0}.review-item p{margin:0 0 8px;color:var(--ink);font-weight:650}.review-item small{display:block;line-height:1.5;color:var(--muted);margin-top:4px}.review-item .right{color:var(--good)}.review-item .wrong-answer{color:var(--bad)}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.hero-mark{font-size:54px}}
+@media(max-width:560px){main{padding:22px 14px 40px}.nav{padding:14px}.nav-note{display:none}.hero{padding:25px 22px}.hero-mark{display:none}.grid{grid-template-columns:1fr}.panel{padding:19px}.question{font-size:19px}.stats{gap:7px}.stat{padding:12px 7px}.stat strong{font-size:19px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="nav"><div class="brand">Quiz<span>Sphere</span>.</div><div class="nav-note">Learn something new every day</div></div></header>
+<main>
+<section class="hero">
+ <div><h1>Test your knowledge.<br>Level up your skills.</h1><p>Choose a subject, answer multiple-choice questions and see your score instantly. Practice Computer Basics, General Knowledge, English, HTML and CSS.</p></div>
+ <div class="hero-mark" aria-hidden="true">✦</div>
+</section>
+<section id="home">
+ <div class="section-head"><div><h2>Explore subjects</h2><p>Select a quiz to get started.</p></div><div class="controls"><select id="difficulty" aria-label="Difficulty"><option value="All">All levels</option><option>Easy</option><option>Medium</option></select></div></div>
+ <div class="grid" id="subjects"></div>
+</section>
+<section id="quizScreen" class="panel hidden" aria-live="polite">
+ <div class="quiz-top"><div class="quiz-title" id="quizTitle">Quiz</div><div class="controls"><span class="pill" id="levelPill">Easy</span><span class="pill timer" id="timer">⏱ 10:00</span></div></div>
+ <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+ <div class="q-count" id="questionCount"></div><h2 class="question" id="questionText"></h2>
+ <div class="options" id="options"></div><div id="feedback" class="hidden"></div>
+ <div class="quiz-actions"><button class="btn secondary" id="exitBtn">Exit quiz</button><button class="btn" id="nextBtn" disabled>Next question →</button></div>
+</section>
+<section id="resultScreen" class="panel hidden">
+ <div class="result"><div class="pill">QUIZ COMPLETED</div><div class="score-circle" id="scoreCircle"><div class="score-inner"><strong id="scorePercent">0%</strong><span>YOUR SCORE</span></div></div><h2 id="resultHeading">Well done!</h2><p id="resultMessage"></p><div class="stats"><div class="stat"><strong id="correctCount">0</strong><span>Correct</span></div><div class="stat"><strong id="incorrectCount">0</strong><span>Incorrect</span></div><div class="stat"><strong id="totalCount">0</strong><span>Total</span></div></div><div class="controls" style="justify-content:center"><button class="btn" id="retryBtn">Try again</button><button class="btn secondary" id="homeBtn">Back to subjects</button></div></div>
+ <div class="review"><h3>Answer review</h3><div id="reviewList"></div></div>
+</section>
+</main>
+<footer>© 2026 QuizSphere · Keep learning, keep growing.</footer>
+<script>
+const questionBank = {
+ "Computer Basics":[
+  ["Which part is often called the brain of a computer?","CPU","Monitor","Keyboard","Mouse",0,"The CPU processes instructions and controls computer operations.","Easy"],
+  ["Which device is used to enter text?","Printer","Keyboard","Speaker","Monitor",1,"A keyboard is an input device used to type text.","Easy"],
+  ["What does RAM stand for?","Read Access Memory","Random Access Memory","Run Active Memory","Remote Access Module",1,"RAM stands for Random Access Memory.","Easy"],
+  ["Which of these is an operating system?","Google Chrome","Microsoft Word","Windows","HTML",2,"Windows is an operating system that manages computer hardware and software.","Easy"],
+  ["Which device produces a paper copy?","Scanner","Printer","Microphone","Webcam",1,"A printer creates a physical paper copy of digital content.","Easy"],
+  ["What is the smallest unit of digital data?","Byte","Bit","Kilobyte","Megabyte",1,"A bit is a binary digit and can represent 0 or 1.","Medium"],
+  ["Which memory is volatile?","ROM","Hard disk","RAM","DVD",2,"RAM is volatile because its contents are lost when power is removed.","Medium"],
+  ["What does URL stand for?","Uniform Resource Locator","Universal Record Link","User Reference Location","Uniform Read Language",0,"A URL is the address used to locate a resource on the web.","Medium"],
+  ["Which of these is an output device?","Mouse","Scanner","Monitor","Keyboard",2,"A monitor displays information from the computer.","Easy"],
+  ["What is the main function of an antivirus program?","Create documents","Detect and remove malware","Increase screen size","Design websites",1,"Antivirus software helps detect, block and remove malicious software.","Medium"]
+ ],
+ "General Knowledge":[
+  ["What is the capital of Pakistan?","Karachi","Islamabad","Lahore","Quetta",1,"Islamabad is the capital city of Pakistan.","Easy"],
+  ["Which is the largest ocean on Earth?","Atlantic Ocean","Indian Ocean","Pacific Ocean","Arctic Ocean",2,"The Pacific Ocean is the largest and deepest ocean.","Easy"],
+  ["How many continents are commonly recognized?","Five","Six","Seven","Eight",2,"The commonly used model recognizes seven continents.","Easy"],
+  ["Which planet is known as the Red Planet?","Venus","Mars","Jupiter","Mercury",1,"Iron-rich dust gives Mars its reddish appearance.","Easy"],
+  ["What is the currency of Japan?","Yuan","Won","Yen","Ringgit",2,"Japan's currency is the yen.","Easy"],
+  ["Which gas do plants absorb during photosynthesis?","Oxygen","Carbon dioxide","Nitrogen","Hydrogen",1,"Plants use carbon dioxide, water and light to make sugars.","Medium"],
+  ["Who wrote the play Romeo and Juliet?","Charles Dickens","William Shakespeare","Jane Austen","Mark Twain",1,"Romeo and Juliet is a tragedy by William Shakespeare.","Easy"],
+  ["Which is the largest planet in our solar system?","Earth","Saturn","Jupiter","Neptune",2,"Jupiter is the largest planet in the solar system.","Easy"],
+  ["What is the chemical symbol for gold?","Ag","Au","Gd","Go",1,"Au comes from the Latin word aurum.","Medium"],
+  ["Which organ pumps blood around the human body?","Lungs","Brain","Heart","Kidneys",2,"The heart pumps blood through the circulatory system.","Easy"]
+ ],
+ "English Basic":[
+  ["Choose the correct plural of 'child'.","Childs","Childes","Children","Childrens",2,"Children is the irregular plural form of child.","Easy"],
+  ["Choose the correct sentence.","She go to school.","She goes to school.","She going to school.","She gone to school.",1,"With he, she or it in the simple present, the verb usually takes -s or -es.","Easy"],
+  ["What is the opposite of 'ancient'?","Old","Modern","Historic","Past",1,"Modern means relating to the present or recent times.","Easy"],
+  ["Which word is a noun?","Quickly","Beautiful","Happiness","Run",2,"Happiness names a state or quality, so it is a noun.","Medium"],
+  ["Choose the correct article: '___ apple a day'.","A","An","The","No article",1,"An is used before a vowel sound; apple begins with a vowel sound.","Easy"],
+  ["What is the past tense of 'write'?","Writed","Written","Wrote","Writing",2,"Wrote is the simple past tense of write.","Easy"],
+  ["Which punctuation mark ends a direct question?","Full stop","Comma","Question mark","Colon",2,"A direct question ends with a question mark.","Easy"],
+  ["Choose the correctly spelled word.","Beautifull","Beautiful","Beutiful","Beautifal",1,"Beautiful is the standard spelling.","Medium"],
+  ["In 'The cat sleeps', which word is the verb?","The","cat","sleeps","None",2,"Sleeps expresses the action or state in the sentence.","Easy"],
+  ["Choose the correct form: 'They ___ playing football.'","is","am","are","be",2,"Are agrees with the plural subject they.","Easy"]
+ ],
+ "HTML":[
+  ["What does HTML stand for?","Hyper Trainer Marking Language","HyperText Markup Language","HighText Machine Language","HyperText Markdown Language",1,"HTML stands for HyperText Markup Language.","Easy"],
+  ["Which tag creates the largest standard heading?","<h6>","<head>","<h1>","<heading>",2,"The h1 element represents the highest-level heading.","Easy"],
+  ["Which tag is used to create a hyperlink?","<link>","<a>","<href>","<url>",1,"The anchor element creates a hyperlink, commonly using the href attribute.","Easy"],
+  ["Which attribute provides alternative text for an image?","title","src","alt","name",2,"The alt attribute provides a text alternative for an image.","Easy"],
+  ["Which element creates an unordered list?","<ol>","<ul>","<li>","<list>",1,"The ul element creates an unordered list; li defines each item.","Easy"],
+  ["Which tag is used to insert an image?","<picture>","<src>","<img>","<image>",2,"The img element embeds an image using the src attribute.","Easy"],
+  ["Which element contains visible page content?","<body>","<meta>","<title>","<head>",0,"The body element contains the document's visible page content.","Medium"],
+  ["Which attribute makes an input field mandatory?","checked","required","selected","disabled",1,"The required attribute prevents form submission until a value is provided.","Medium"],
+  ["Which declaration identifies an HTML5 document?","<html5>","<doctype html>","<!DOCTYPE html>","<document>",2,"The HTML doctype declaration is written as <!DOCTYPE html>.","Medium"],
+  ["Which tag creates a table row?","<td>","<th>","<tr>","<table-row>",2,"The tr element defines a row in an HTML table.","Medium"]
+ ],
+ "CSS":[
+  ["What does CSS stand for?","Computer Style Sheets","Cascading Style Sheets","Creative Styling System","Colorful Style Syntax",1,"CSS stands for Cascading Style Sheets.","Easy"],
+  ["Which property changes text color?","font-color","text-style","color","background-color",2,"The color property sets the foreground color of text.","Easy"],
+  ["Which selector targets an element with id='main'?"," .main","#main","main#","*main",1,"An ID selector starts with the # symbol.","Easy"],
+  ["Which property changes the text size?","font-size","text-size","font-style","size",0,"The font-size property controls the size of text.","Easy"],
+  ["Which CSS property adds space inside an element's border?","margin","padding","outline","gap",1,"Padding is the space between content and border.","Medium"],
+  ["Which value turns an element into a flex container?","position:flex","display:flex","flex:display","layout:flex",1,"The display property set to flex creates a flex formatting context.","Medium"],
+  ["How do you select all paragraph elements?"," .p"," #p","p","paragraph()",2,"The type selector p targets all paragraph elements.","Easy"],
+  ["Which property rounds the corners of a box?","corner-radius","border-round","border-radius","round-edge",2,"border-radius controls the rounding of an element's corners.","Easy"],
+  ["Which property controls space outside an element's border?","padding","margin","border-spacing","line-height",1,"Margin creates space outside an element's border.","Medium"],
+  ["Which symbol starts a CSS class selector?"," #",".","*","@",1,"A class selector begins with a period, such as .card.","Easy"]
+ ]
+};
+const subjectsMeta=[
+ ["Computer Basics","💻","Learn about computer parts, memory, software and common technology.", "10 questions"],
+ ["General Knowledge","🌍","Explore science, geography, history and everyday facts.","10 questions"],
+ ["English Basic","📚","Practice grammar, vocabulary, spelling and sentence structure.","10 questions"],
+ ["HTML","🌐","Test your knowledge of HTML tags, attributes and page structure.","10 questions"],
+ ["CSS","🎨","Practice selectors, colors, spacing, layout and styling.","10 questions"]
+];
+let currentSubject="", questions=[], currentIndex=0, answers=[], secondsLeft=600, timerId=null, locked=false;
+const $=id=>document.getElementById(id);
+function renderSubjects(){
+ $("subjects").innerHTML=subjectsMeta.map(([name,icon,desc,count])=>`<article class="subject"><div class="subject-icon">${icon}</div><h3>${name}</h3><p>${desc}</p><div class="subject-foot"><span>${count}</span><button class="btn" onclick="startQuiz('${name.replace(/'/g,"\\'")}')">Start quiz →</button></div></article>`).join("");
+}
+function startQuiz(subject){
+ currentSubject=subject;
+ const level=$("difficulty").value;
+ questions=questionBank[subject].filter(q=>level==="All"||q[7]===level);
+ if(!questions.length){alert("No questions available for this level yet.");return;}
+ questions=questions.map(q=>[...q]).sort(()=>Math.random()-.5);
+ currentIndex=0;answers=[];secondsLeft=600;locked=false;
+ $("home").classList.add("hidden");$("resultScreen").classList.add("hidden");$("quizScreen").classList.remove("hidden");
+ $("quizTitle").textContent=subject+" Quiz";$("levelPill").textContent=level==="All"?"Mixed levels":level;
+ renderQuestion();clearInterval(timerId);updateTimer();timerId=setInterval(()=>{secondsLeft--;updateTimer();if(secondsLeft<=0){clearInterval(timerId);finishQuiz(true);}},1000);
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function updateTimer(){const m=Math.floor(secondsLeft/60),s=secondsLeft%60;$("timer").textContent=`⏱ ${m}:${String(s).padStart(2,"0")}`;}
+function renderQuestion(){
+ locked=false;const q=questions[currentIndex];
+ $("questionCount").textContent=`QUESTION ${currentIndex+1} OF ${questions.length}`;
+ $("questionText").textContent=q[0];
+ $("progressBar").style.width=`${(currentIndex/questions.length)*100}%`;
+ $("feedback").className="hidden";$("feedback").textContent="";
+ $("options").innerHTML=q.slice(1,5).map((opt,i)=>`<button class="option" data-index="${i}" onclick="chooseAnswer(${i})"><span class="letter">${String.fromCharCode(65+i)}</span><span class="option-text">${escapeHTML(opt)}</span></button>`).join("");
+ $("nextBtn").disabled=true;$("nextBtn").textContent=currentIndex===questions.length-1?"Finish quiz ✓":"Next question →";
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function chooseAnswer(index){
+ if(locked)return;locked=true;const q=questions[currentIndex],correct=q[5]===index;answers[currentIndex]=index;
+ document.querySelectorAll(".option").forEach((btn,i)=>{btn.disabled=true;if(i===q[5])btn.classList.add("correct");else if(i===index)btn.classList.add("wrong");});
+ $("feedback").className="feedback "+(correct?"good":"bad");
+ $("feedback").textContent=(correct?"Correct! ":"Not quite. ")+q[6];
+ $("nextBtn").disabled=false;
+}
+function finishQuiz(timeUp=false){
+ clearInterval(timerId);const correct=answers.reduce((n,a,i)=>n+(a===questions[i][5]?1:0),0),total=questions.length,pct=Math.round(correct/total*100);
+ $("quizScreen").classList.add("hidden");$("resultScreen").classList.remove("hidden");
+ $("scorePercent").textContent=pct+"%";$("scoreCircle").style.setProperty("--score",pct+"%");
+ $("resultHeading").textContent=pct>=80?"Excellent work!":pct>=50?"Good effort!":"Keep practicing!";
+ $("resultMessage").textContent=(timeUp?"Time is up. ":"")+`You scored ${correct} out of ${total} in ${currentSubject}.`;
+ $("correctCount").textContent=correct;$("incorrectCount").textContent=total-correct;$("totalCount").textContent=total;
+ $("reviewList").innerHTML=questions.map((q,i)=>{const a=answers[i],ok=a===q[5];return `<div class="review-item"><p>${i+1}. ${escapeHTML(q[0])}</p><small class="${ok?"right":"wrong-answer"}">${ok?"✓ Correct":"✕ Incorrect"} · Your answer: ${a===undefined?"Not answered":escapeHTML(q[a+1])}</small><small>Correct answer: ${escapeHTML(q[q[5]+1])}</small><small>${escapeHTML(q[6])}</small></div>`;}).join("");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+$("nextBtn").addEventListener("click",()=>{if(!locked)return;if(currentIndex<questions.length-1){currentIndex++;renderQuestion();}else finishQuiz();});
+$("exitBtn").addEventListener("click",()=>{if(confirm("Exit this quiz? Your current progress will be lost.")){clearInterval(timerId);$("quizScreen").classList.add("hidden");$("home").classList.remove("hidden");}});
+$("retryBtn").addEventListener("click",()=>startQuiz(currentSubject));
+$("homeBtn").addEventListener("click",()=>{$("resultScreen").classList.add("hidden");$("home").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});});
+renderSubjects();
+</script>
+</body>
+</html>
